@@ -1,3 +1,4 @@
+import json
 def calculate_total_minutes(sessions):
     total_count = 0
     for session in sessions:
@@ -47,12 +48,19 @@ def show_menu():
     print("3. View total minutes")
     print("4. Exit")
 
-session_1 = {"topic": "programming", "duration_time": 120, "notes": "Today we are learning Python Programming Language"}
-session_2 = {"topic": "databases", "duration_time": 90, "notes": "Today we are learning SQL"}
-sessions =[]
-sessions.append(session_1)
-sessions.append(session_2)
-# new_session = create_session()
+def save_sessions(sessions):
+    with open("learning_sessions.json", "w", encoding="utf-8") as file:
+        json.dump(sessions, file, indent=4)
+
+def load_sessions():
+    try:
+        with open("learning_sessions.json", "r", encoding="utf-8") as file:
+            return json.load(file)
+    except FileNotFoundError:
+        return []
+
+sessions = load_sessions()
+
 while True:
     show_menu()
     choice = input("Choose an option: ").strip()
@@ -60,6 +68,8 @@ while True:
         print("Add a session selected")
         new_session = create_session()
         sessions.append(new_session)
+        save_sessions(sessions)
+        print("Session saved.")
     elif choice == "2":
         print("View sessions selected")
         list_sessions(sessions)
