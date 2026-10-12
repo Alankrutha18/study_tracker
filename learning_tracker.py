@@ -59,26 +59,34 @@ def load_sessions():
     except FileNotFoundError:
         return []
 
-sessions = load_sessions()
 
-while True:
-    show_menu()
-    choice = input("Choose an option: ").strip()
-    if choice == "1":
-        print("Add a session selected")
-        new_session = create_session()
-        sessions.append(new_session)
-        save_sessions(sessions)
-        print("Session saved.")
-    elif choice == "2":
-        print("View sessions selected")
-        list_sessions(sessions)
-    elif choice == "3":
-        print("View total minutes selected")
-        total_minutes = calculate_total_minutes(sessions)
-        print("Total minutes studied:", total_minutes)
-    elif choice == "4":
-        print("Goodbye!")
-        break
-    else:
-        print("Invalid Selection , Select from menu options only")
+def main():
+    sessions = load_sessions()
+
+    while True:
+        show_menu()
+        choice = input("Choose an option: ").strip()
+        if choice == "1":
+            print("Add a session selected")
+            new_session = create_session()
+            sessions.append(new_session)
+            save_sessions(sessions)
+            print("Session saved.")
+        elif choice == "2":
+            print("View sessions selected")
+            list_sessions(sessions)
+        elif choice == "3":
+            print("View total minutes selected")
+            total_minutes = calculate_total_minutes(sessions)
+            print("Total minutes studied:", total_minutes)
+        elif choice == "4":
+            print("Goodbye!")
+            break
+        else:
+            print("Invalid Selection , Select from menu options only")
+
+
+if __name__ == "__main__":
+    main()
+
+
